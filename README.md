@@ -1,4 +1,4 @@
-# todos
+# Todo List Vue.js
 
 ## Project setup
 ```
