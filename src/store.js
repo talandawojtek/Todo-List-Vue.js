@@ -5,12 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    todos: [],
-    getTodo: [],
-    blur: null
+    valueTodo: '',
+    blur: null,
+    todos: []
   },
   mutations: {
-
+    valueTodo (state, value) {
+      state.valueTodo = value
+    }
   },
   actions: {
 
