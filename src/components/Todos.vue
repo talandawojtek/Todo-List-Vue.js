@@ -57,7 +57,8 @@ export default {
       cancel:function(){this.editor=false}
   },
     mounted:function(){
-      this.$store.state.todos=JSON.parse(localStorage.getItem('todos'))
+      if(localStorage.getItem('todos')===null){window.localStorage.clear()}
+      else{this.$store.state.todos=JSON.parse(localStorage.getItem('todos'))}
     },
     updated:function(){
       localStorage.setItem('todos',JSON.stringify(this.$store.state.todos));
