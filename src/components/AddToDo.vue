@@ -2,19 +2,16 @@
    <div :style="{'filter': `blur(${blur})`}" class="add-to-do">
      <h1>Vue Todo</h1>
      <form class="search">
-        <input v-model="valueTodo" type="text" autofocus placeholder="Add new!"><button @click="AddTodo">+</button>
+        <input v-model="valueTodo" type="text" autofocus placeholder="Add new!"/><button @click="AddTodo">+</button>
      </form>
      <img v-if="todos.length===0" src="../image/arrow.png" alt="image"/>
    </div>
 </template>
 <script>
-import { setInterval } from 'timers';
 export default {
   name: 'AddToDo',
   data:function(){
     return{
-      valueTodo:'',
-      idTodo:0,
       second:'',
       minute:'',
       hour:'',
@@ -22,13 +19,20 @@ export default {
     }
   },
   computed:{
+    valueTodo: {
+    get () {
+      return this.$store.state.valueTodo
+    },
+    set (value) {
+      this.$store.commit('valueTodo', value)
+    }
+  },
     todos(){return this.$store.state.todos},
-    getTodo(){return this.$store.state.getTodo},
     blur(){return this.$store.state.blur},
   },
   methods:{
     AddTodo:function(event){
-      if(this.valueTodo===''){return null}
+      if(this.$store.state.valueTodo===''){return null}
       else{
         event.preventDefault();
         let data=new Date()
@@ -43,13 +47,13 @@ export default {
         // get Data.................................
 
         let newTodo = {
-            text:this.valueTodo,
+            text:this.$store.state.valueTodo,
             hours:hours,
             done:this.done,
           }
         this.$store.state.todos.push(newTodo)
-        this.valueTodo='';
-
+        this.$store.state.valueTodo='';
+        
         //added todos..............................
       }
     }
@@ -90,7 +94,6 @@ img{
     };
    input:hover{
       outline: 1px;
-      
     }
     button{
     border:0;
